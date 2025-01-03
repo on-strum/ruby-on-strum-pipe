@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'logs/core'
+require_relative 'pipe/core'
 
 # module OnStrum
-#   module GemName
+#   module Pipe
 #   end
 # end

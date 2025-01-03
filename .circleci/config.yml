@@ -3,7 +3,7 @@
 version: 2.1
 
 defaults: &defaults
-  working_directory: ~/ruby-on-strum-gem-name
+  working_directory: ~/ruby-on-strum-pipe
   docker:
     - image: cimg/ruby:<< parameters.ruby-version >>
 
@@ -44,12 +44,12 @@ references:
   use_latest_gemspec: &use_latest_gemspec
     run:
       name: Using latest gemspec
-      command: cp .circleci/gemspecs/latest on_strum-gem_name.gemspec
+      command: cp .circleci/gemspecs/latest on_strum-pipe.gemspec
 
   use_compatible_gemspec: &use_compatible_gemspec
     run:
       name: Using compatible gemspec
-      command: cp .circleci/gemspecs/compatible on_strum-gem_name.gemspec
+      command: cp .circleci/gemspecs/compatible on_strum-pipe.gemspec
 
 jobs:
   linters-ruby:
@@ -119,7 +119,7 @@ jobs:
 
       - store_artifacts:
           name: Saving Simplecov coverage artifacts
-          path: ~/ruby-on-strum-gem-name/coverage
+          path: ~/ruby-on-strum-pipe/coverage
           destination: coverage
 
       - deploy:
@@ -174,7 +174,7 @@ jobs:
 
       - add_ssh_keys:
           fingerprints:
-            - "SO:ME:FIN:G:ER:PR:IN:T"
+            - "SHA256:AzE1bFfEWEYK2PfoD4Uig7rneLhBBpEjJs6drZ3YeNQ"
 
       - run:
           name: Publishing new release
@@ -194,11 +194,11 @@ workflows:
       - compatibility-ruby:
           matrix:
             parameters:
-              ruby-version: ["2.5", "2.6", "2.7", "3.0", "3.1", "3.2"]
+              ruby-version: ["2.7", "3.0", "3.1", "3.2"]
       - rubygems-deps-ruby:
           matrix:
             parameters:
-              ruby-version: ["2.5"]
+              ruby-version: ["2.7"]
       - releasing-gem-from-ruby:
           requires:
             - linters-ruby
@@ -207,7 +207,7 @@ workflows:
             - rubygems-deps-ruby
           matrix:
             parameters:
-              ruby-version: ["2.5"]
+              ruby-version: ["2.7"]
           filters:
             branches:
               only: master
